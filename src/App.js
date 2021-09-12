@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import ListArticles  from "./components/ListArticles";
 
-function App() {
+const URL = "https://hn.algolia.com/api/v1/search?query=...";
+
+export default function App() {
+  const [stories, setStories] = useState([]);
+
+  // componentDidMount
+  useEffect(() => {
+    console.log("Mounted");
+    fetch(URL)
+      .then((res) => res.json())
+      .then((data) => setStories(data.hits));
+    // The array is called a dependecy array
+  }, []);
+
+  // componentDidUpdate
+  useEffect(() => {
+    console.log("Updated");
+  }, [stories]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ListArticles stories={stories}  />
     </div>
   );
 }
-
-export default App;
