@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ListArticles  from "./components/ListArticles";
+import SearchForm from "./components/SearchForm";
 
 const URL = "https://hn.algolia.com/api/v1/search?query=...";
 
@@ -21,8 +22,11 @@ export default function App() {
   }, [stories]);
 
   return (
+
     <div className="App">
+      <SearchForm />
       <ListArticles stories={stories}  />
     </div>
   );
 }
+
